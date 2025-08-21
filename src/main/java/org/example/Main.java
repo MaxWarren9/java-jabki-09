@@ -80,6 +80,7 @@ public class Main {
         System.out.println(synMap);
 
         addSynonym(synMap, "Лето", "Жара");
+        addSynonym(synMap, "Лето", "Мороженое");
         addSynonym(synMap, "Зима", "Рождество");
         System.out.println(synMap);
     }
@@ -123,13 +124,8 @@ public class Main {
         if (list.isEmpty()) {
             return false;
         }
-        Set<Integer> hashSet = new HashSet<>();
-        for (int n : list) {
-            if (!hashSet.add(n)) {
-                return true;
-            }
-        }
-        return false;
+        Set<Integer> hashSet = new HashSet<>(list);
+        return hashSet.size() == list.size();
     }
 
     public static String getStudentWithMaxScore(Map<String, Integer> hashMap) {
@@ -141,11 +137,7 @@ public class Main {
     }
 
     public static void addSynonym(Map<String, Set<String>> map, String word, String synonym) {
-        if (!map.containsKey(word)) {
-            map.computeIfAbsent(word, key -> new HashSet<>()).add(synonym);
-        } else {
-            map.get(word).add(synonym);
-        }
+        map.computeIfAbsent(word, key -> new HashSet<>()).add(synonym);
     }
 }
 
